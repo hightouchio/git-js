@@ -1,5 +1,7 @@
-import { assertExecutedCommands, closeWithSuccess, like, newSimpleGit } from './__fixtures__';
-import { SimpleGit } from "../../typings";
+import { assertExecutedCommands } from '@simple-git/test-utils';
+
+import { closeWithSuccess, like, newSimpleGit } from './__fixtures__';
+import { SimpleGit } from '../../typings';
 
 describe('push', () => {
    let git: SimpleGit;
@@ -13,7 +15,7 @@ describe('push', () => {
    it('runs escaped fetch', async () => {
       const branchPrefix = 'some-name';
       const ref = `'refs/heads/${branchPrefix}*:refs/remotes/origin/${branchPrefix}*'`;
-      git.fetch(`origin`, ref, { '--depth': '2' }, callback);
+      git.fetch(`origin`, ref, {'--depth': '2'}, callback);
       await closeWithSuccess();
       assertExecutedCommands('fetch', '--depth=2', 'origin', ref);
    });
@@ -28,9 +30,9 @@ describe('push', () => {
 
       assertExecutedCommands('fetch', '--depth=2', 'foo', 'bar');
       expect(await queue).toEqual(like({
-         branches: [{ name: 'master', tracking: 'origin/master' }],
+         branches: [{name: 'master', tracking: 'origin/master'}],
          remote: 'https://github.com/steveukx/git-js',
-         tags: [{ name: '0.11.0', tracking: '0.11.0' }],
+         tags: [{name: '0.11.0', tracking: '0.11.0'}],
       }));
    });
 

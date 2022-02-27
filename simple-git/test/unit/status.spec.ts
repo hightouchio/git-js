@@ -1,6 +1,6 @@
 import { promiseError } from '@kwsites/promise-result';
+import { assertExecutedCommands } from '@simple-git/test-utils';
 import {
-   assertExecutedCommands,
    assertGitError,
    closeWithError,
    closeWithSuccess,
@@ -291,7 +291,7 @@ R  src/a.txt -> src/c.txt
       });
 
       it('allows isClean to be destructured', () => {
-         const { isClean } = parseStatusSummary('\n');
+         const {isClean} = parseStatusSummary('\n');
          expect(isClean()).toBe(true);
       });
 
