@@ -166,10 +166,10 @@ export class GitExecutorChain implements SimpleGitExecutor {
          logger('%O', spawnOptions)
          const spawned = spawn(command, args, spawnOptions);
 
+         spawned.on('error', onErrorReceived(stdErr, logger));
+
          spawned.stdout!.on('data', onDataReceived(stdOut, 'stdOut', logger, outputLogger.step('stdOut')));
          spawned.stderr!.on('data', onDataReceived(stdErr, 'stdErr', logger, outputLogger.step('stdErr')));
-
-         spawned.on('error', onErrorReceived(stdErr, logger));
 
          if (outputHandler) {
             logger(`Passing child process stdOut/stdErr to custom outputHandler`);
